@@ -15,11 +15,26 @@
     </div>
     <div>
       <a href="/">Home</a>
-      <a href="/logout">Logout</a>
-      <a href="/login">Login</a>
+      <a href="/sessions/new">Logout</a>
+      <a href="/sessions/new">Login</a>
       <a href="/users/new">Signup</a>
     </div>
 
     <%= yield %>
   </body>
+
+ <ul class="navbar-nav mb-2 mb-lg-0">
+          <% if @current_user %>
+            <li class="nav-item">Logged in as: <%= @current_user["email"] %></li>
+            <li class="nav-item"><a href="/sessions/new" class="nav-link">Logout</a></li>
+          <% else %>
+            <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
+            <li class="nav-item"><a href="/users/new" class="nav-link">Sign Up</a></li>
+          <% end %>
+        </div>
+
 </html>
+
+
+
+
