@@ -7,9 +7,16 @@
   <p><%= post["description"] %></p>
 <% end %>
 
+<% if post.uploaded_image.attached? %>
+  <img src="<%= url_for(post.uploaded_image) %>" class="img-fluid">
+<% else %>
+  <img src="<%= post["image"] %>" class="img-fluid">
+<% end %>
+
 <p>
   <a href="/posts/new?place_id=<%= @place["id"] %>">New Post</a>
 </p>
+
 
 <p>
   <a href="/places">Back to All Places</a>
