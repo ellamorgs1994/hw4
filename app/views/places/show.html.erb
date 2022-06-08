@@ -1,23 +1,35 @@
 <h1><%= @place["name"] %></h1>
 
 <h2>My Posts</h2>
+
+<% if @current_user%>
+
 <% for post in @posts %>
   <h3><%= post["title"] %></h3>
   <h4><%= post["posted_on"] %></h4>
+
+    <% if post.uploaded_image.attached? %>
+      <img src="<%= url_for(post.uploaded_image) %>" class="img-fluid">
+    <% else %>
+      <img src="<%= post["image"] %>" class="img-fluid">
+    <% end %>
+
   <p><%= post["description"] %></p>
 <% end %>
 
-<% if post.uploaded_image.attached? %>
-  <img src="<%= url_for(post.uploaded_image) %>" class="img-fluid">
-<% else %>
-  <img src="<%= post["image"] %>" class="img-fluid">
+<div class="my-3">
+<p>
+  <a class="btn btn-primary" href="/posts/new?place_id=<%= @place["id"] %>" role="button">New Post</a>
+</p>
+</div>
+
+<div class="my-3">
+<p>
+  <a class="btn btn-primary" href="/places" role="button">Back to All Places</a>
+</p>
+</div>
+
+<%else%>
+<%flash["notice"] = "sorry, you need to be logged in to view and create posts."%>
+
 <% end %>
-
-<p>
-  <a href="/posts/new?place_id=<%= @place["id"] %>">New Post</a>
-</p>
-
-
-<p>
-  <a href="/places">Back to All Places</a>
-</p>
